@@ -3,17 +3,28 @@
 #include "../header/grammar.h"
 #include "../header/chomskyNormalizer.h"
 
+void testes_lambda(Grammar& g){
+    cout << "---------------------------------------" << endl;
+    ChomskyNormalizer normalizer(g);
+
+    Grammar v2 = normalizer.removeLambdaProductions();
+
+    cout << "---------------------------------------" << endl;
+}
+
 int main() {
     ofstream file("grammar.txt");
 
-    Grammar g("S", { "a", "b" });
+    Grammar g("S", { "a", "b", "&"});
 
     g.addProduction("S", {"a", "S", "b"});
     g.addProduction("S", {"a", "b"});
     g.addProduction("S", {"b"});
-    g.addProduction("C", {"&"});
-    g.addProduction("A", {"b"});
+    g.addProduction("A", {"b", "B"});
     g.addProduction("B", {"&"});
+    g.addProduction("B", {"C", "b", "a"});
+    g.addProduction("C", {"&"});
+    g.addProduction("C", {"C"});
 
     cout << "Gramática original:\n";
     g.print(cout);
@@ -39,7 +50,7 @@ int main() {
     Grammar v2 = normalizer.removeRecursionAtBeginning();
     v2.print(cout);
 
-    Grammar v3 = normalizer.removeLambdaProductions();
+    testes_lambda(v2);
 
     return 0;
 }
