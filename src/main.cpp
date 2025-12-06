@@ -139,6 +139,24 @@ int main() {
     cout << "\nRemovendo regras unitarias: " << endl;
     g5v2.print(cout);
 
+    cout << "-------------------------------------------------------------" << endl;
+
+    Grammar g6("S", { "a", "b", "c", "d"});
+
+    g6.addProduction("S", {"A"});
+    g6.addProduction("A", {"B"});
+    g6.addProduction("B", {"C"});
+    g6.addProduction("C", {"D"});
+    g6.addProduction("D", {"d"});
+
+    cout << "Gramática original:\n";
+    g6.print(cout);
+
+    ChomskyNormalizer normalizer6(g6);
+    Grammar g6v2 = normalizer5.removeUnitProductions();
+    cout << "\nRemovendo regras unitarias: " << endl;
+    g6v2.print(cout);
+
 
     return 0;
 }
